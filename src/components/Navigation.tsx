@@ -1,9 +1,8 @@
 
-import React from 'react';
-import { Moon, Sun, Menu, X } from 'lucide-react';
-import { useTheme } from '@/contexts/ThemeContext';
+import React, { useState } from 'react';
+import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
+import ThemeToggle from './ThemeToggle';
 
 interface NavigationProps {
   activeTab: string;
@@ -11,7 +10,6 @@ interface NavigationProps {
 }
 
 const Navigation: React.FC<NavigationProps> = ({ activeTab, setActiveTab }) => {
-  const { isDark, toggleTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const tabs = [
@@ -30,7 +28,7 @@ const Navigation: React.FC<NavigationProps> = ({ activeTab, setActiveTab }) => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border transition-all duration-300">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
@@ -40,36 +38,30 @@ const Navigation: React.FC<NavigationProps> = ({ activeTab, setActiveTab }) => {
           </div>
           
           {/* Desktop navigation */}
-          <div className="hidden md:flex items-center space-x-4">
-            <div className="flex space-x-1">
-              {tabs.map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => handleTabClick(tab)}
-                  className={`px-3 py-2 text-sm font-medium transition-colors duration-300 rounded-md hover:bg-secondary ${
-                    activeTab === tab
-                      ? 'text-primary border-b-2 border-primary'
-                      : 'text-muted-foreground hover:text-foreground'
-                  }`}
-                >
-                  {tab}
-                </button>
+          <div className="hidden md:flex items-center">
+            <div className="breadcrumb flex items-center bg-card/60 backdrop-blur-sm rounded-lg shadow-lg p-1 border border-border/50">
+              {tabs.map((tab, index) => (
+                <React.Fragment key={tab}>
+                  <button
+                    onClick={() => handleTabClick(tab)}
+                    className={`breadcrumb-item relative px-4 py-2 text-sm font-medium transition-all duration-400 rounded-md ${
+                      activeTab === tab
+                        ? 'bg-primary text-primary-foreground shadow-sm'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+                    }`}
+                  >
+                    {tab}
+                    {index < tabs.length - 1 && activeTab !== tab && (
+                      <div className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-1/2 w-0 h-0 border-l-4 border-l-card border-t-4 border-t-transparent border-b-4 border-b-transparent z-10"></div>
+                    )}
+                  </button>
+                </React.Fragment>
               ))}
             </div>
           </div>
 
           <div className="flex items-center space-x-4">
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-lg bg-secondary hover:bg-primary/20 transition-colors duration-300"
-              aria-label="Toggle theme"
-            >
-              {isDark ? (
-                <Sun className="h-5 w-5 text-foreground" />
-              ) : (
-                <Moon className="h-5 w-5 text-foreground" />
-              )}
-            </button>
+            <ThemeToggle />
 
             {/* Mobile menu button */}
             <div className="md:hidden">
@@ -78,6 +70,7 @@ const Navigation: React.FC<NavigationProps> = ({ activeTab, setActiveTab }) => {
                 size="sm"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 aria-label="Toggle menu"
+                className="backdrop-blur-sm"
               >
                 {mobileMenuOpen ? (
                   <X className="h-5 w-5" />
@@ -92,16 +85,16 @@ const Navigation: React.FC<NavigationProps> = ({ activeTab, setActiveTab }) => {
       
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-background/95 backdrop-blur-md border-b border-border animate-fade-in">
+        <div className="md:hidden bg-background/95 backdrop-blur-lg border-b border-border animate-fade-in">
           <div className="px-4 pt-2 pb-3 space-y-1">
             {tabs.map((tab) => (
               <button
                 key={tab}
                 onClick={() => handleTabClick(tab)}
-                className={`block w-full text-left px-3 py-3 text-base font-medium transition-all duration-200 border-l-2 ${
+                className={`block w-full text-left px-4 py-3 text-base font-medium transition-all duration-200 rounded-lg ${
                   activeTab === tab
-                    ? 'text-primary border-primary bg-primary/10'
-                    : 'text-muted-foreground border-transparent hover:text-foreground hover:bg-secondary/50'
+                    ? 'text-primary bg-primary/10 border-l-4 border-primary'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
                 }`}
               >
                 {tab}

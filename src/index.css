@@ -137,6 +137,10 @@
   .animate-fade-in {
     animation: fadeIn 0.5s ease-out forwards;
   }
+
+  .animate-plane-fly {
+    animation: plane-fly 2s ease-in-out;
+  }
 }
 
 /* Custom keyframe animations */
@@ -191,4 +195,103 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes plane-fly {
+  0% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateX(100px) translateY(-50px) rotate(45deg);
+  }
+  100% {
+    transform: translateX(200px) translateY(-100px) rotate(90deg);
+    opacity: 0;
+  }
+}
+
+/* Breadcrumb navigation styles */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+  padding: 0.25rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.breadcrumb-item {
+  position: relative;
+  padding: 0.5rem 1rem;
+  color: var(--foreground);
+  text-decoration: none;
+  transition: all 0.4s ease;
+  border-radius: 6px;
+}
+
+.breadcrumb-item::after {
+  content: "";
+  position: absolute;
+  right: -0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 0.75rem solid transparent;
+  border-bottom: 0.75rem solid transparent;
+  border-left: 0.5rem solid transparent;
+  z-index: 1;
+  transition: border-left-color 0.4s ease;
+}
+
+/* Theme toggle styles */
+.theme-toggle {
+  position: relative;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-toggle:hover {
+  transform: scale(1.05);
+}
+
+.theme-toggle-inner {
+  border-radius: inherit;
+}
+
+.theme-toggle-svg {
+  transition: all 0.5s ease;
+}
+
+/* Send button animations */
+.send-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.send-content,
+.sent-content {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.paper-plane {
+  transition: all 0.5s ease;
+}
+
+/* Professional styling for inputs */
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: hsl(var(--primary));
+  box-shadow: 0 0 0 3px rgba(var(--glow-primary), 0.1);
+}
+
+/* Enhanced glass effect */
+.backdrop-blur-sm {
+  backdrop-filter: blur(8px);
+}
+
+.backdrop-blur-lg {
+  backdrop-filter: blur(16px);
 }

@@ -11,6 +11,7 @@ import SkillsSection from "@/components/sections/SkillsSection";
 import ExperienceSection from "@/components/sections/ExperienceSection";
 import CertificatesSection from "@/components/sections/CertificatesSection";
 import ContactSection from "@/components/sections/ContactSection";
+import Footer from "@/components/Footer";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('Home');
@@ -50,6 +51,9 @@ const Index = () => {
       <div className="relative z-10 pt-16">
         {renderActiveSection()}
       </div>
+      
+      {/* Footer */}
+      <Footer />
       
       {/* Decorative elements */}
       <div className="absolute top-20 left-20 w-2 h-2 bg-primary rounded-full animate-float" />

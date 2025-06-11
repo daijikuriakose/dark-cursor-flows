@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Briefcase, Calendar } from 'lucide-react';
+import TechnologiesSection from './TechnologiesSection';
 
 const ExperienceSection = () => {
   const experiences = [
@@ -39,7 +40,7 @@ const ExperienceSection = () => {
           </p>
         </div>
         
-        <div className="space-y-8">
+        <div className="space-y-8 mb-16">
           {experiences.map((exp, index) => (
             <div key={index} className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-6 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300">
               <div className="flex items-start gap-4">
@@ -68,6 +69,8 @@ const ExperienceSection = () => {
             </div>
           ))}
         </div>
+        
+        <TechnologiesSection />
       </div>
     </section>
   );

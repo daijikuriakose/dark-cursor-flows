@@ -1,36 +1,74 @@
 
-import React from 'react';
+import React, { useState } from 'react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const SkillsSection = () => {
-  const skillCategories = [
+  const frontendSkills = [
+    { name: "HTML", level: 95 },
+    { name: "CSS", level: 90 },
+    { name: "JavaScript", level: 75 },
+    { name: "TypeScript", level: 70 },
+    { name: "Next.js", level: 65 },
+    { name: "Responsive Design", level: 75 }
+  ];
+
+  const backendSkills = [
+    { name: "Node.js", level: 85 },
+    { name: "C++", level: 70 },
+    { name: "API", level: 75 },
+    { name: "MongoDB", level: 70 },
+    { name: "MySQL", level: 65 },
+    { name: "Python", level: 60 }
+  ];
+
+  const toolsSkills = [
+    { name: "UI Fundamentals", level: 70 },
+    { name: "Tailwind CSS", level: 65 },
+    { name: "Frontend Basics", level: 80 },
+    { name: "Git", level: 85 },
+    { name: "VS Code", level: 90 },
+    { name: "GitHub", level: 80 }
+  ];
+
+  const professionalSkills = [
     {
-      title: "Frontend",
+      category: "Communication & Collaboration",
       skills: [
-        { name: "React", level: 90 },
-        { name: "TypeScript", level: 85 },
-        { name: "Tailwind CSS", level: 88 },
-        { name: "Next.js", level: 80 }
+        { name: "Communication", level: 85 },
+        { name: "Teamwork", level: 90 },
+        { name: "Problem Solving", level: 85 },
+        { name: "Critical Thinking", level: 80 }
       ]
     },
     {
-      title: "Backend",
+      category: "Leadership & Management",
       skills: [
-        { name: "Node.js", level: 85 },
-        { name: "Python", level: 80 },
-        { name: "PostgreSQL", level: 75 },
-        { name: "MongoDB", level: 70 }
-      ]
-    },
-    {
-      title: "Tools & Others",
-      skills: [
-        { name: "Git", level: 90 },
-        { name: "Docker", level: 75 },
-        { name: "AWS", level: 70 },
-        { name: "Figma", level: 65 }
+        { name: "Learning Agility", level: 90 },
+        { name: "Attention to Detail", level: 85 },
+        { name: "Time Management", level: 80 },
+        { name: "Adaptability", level: 95 }
       ]
     }
   ];
+
+  const renderSkillBars = (skills: any[]) => (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {skills.map((skill, index) => (
+        <div key={index} className="space-y-2">
+          <div className="flex justify-between">
+            <span className="text-foreground font-medium">{skill.name}</span>
+            <span className="text-muted-foreground">{skill.level}%</span>
+          </div>
+          <div className="w-full bg-secondary rounded-full h-2">
+            <div 
+              className="bg-gradient-to-r from-primary to-accent h-2 rounded-full transition-all duration-1000 ease-out"
+              style={{ width: `${skill.level}%` }}
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 
   return (
     <section className="min-h-screen py-20 px-4">
@@ -40,35 +78,50 @@ const SkillsSection = () => {
             Skills
           </h2>
           <p className="text-xl text-muted-foreground">
-            Technologies and tools I work with
+            Technologies and abilities that drive my development
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {skillCategories.map((category, index) => (
-            <div key={index} className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-6">
-              <h3 className="text-2xl font-semibold text-foreground mb-6 text-center">
-                {category.title}
-              </h3>
-              <div className="space-y-4">
-                {category.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex}>
-                    <div className="flex justify-between mb-2">
-                      <span className="text-foreground">{skill.name}</span>
-                      <span className="text-muted-foreground">{skill.level}%</span>
-                    </div>
-                    <div className="w-full bg-secondary rounded-full h-2">
-                      <div 
-                        className="bg-gradient-to-r from-primary to-accent h-2 rounded-full transition-all duration-1000 ease-out"
-                        style={{ width: `${skill.level}%` }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
+        <Tabs defaultValue="frontend" className="w-full">
+          <TabsList className="grid w-full grid-cols-4 mb-8 bg-card/50 backdrop-blur-sm">
+            <TabsTrigger value="frontend">Frontend</TabsTrigger>
+            <TabsTrigger value="backend">Backend</TabsTrigger>
+            <TabsTrigger value="tools">Tools & Others</TabsTrigger>
+            <TabsTrigger value="professional">Professional</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="frontend" className="space-y-8">
+            <div className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-8">
+              <h3 className="text-2xl font-semibold text-foreground mb-6">Frontend Development</h3>
+              {renderSkillBars(frontendSkills)}
             </div>
-          ))}
-        </div>
+          </TabsContent>
+          
+          <TabsContent value="backend" className="space-y-8">
+            <div className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-8">
+              <h3 className="text-2xl font-semibold text-foreground mb-6">Backend Development</h3>
+              {renderSkillBars(backendSkills)}
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="tools" className="space-y-8">
+            <div className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-8">
+              <h3 className="text-2xl font-semibold text-foreground mb-6">Tools & Development Environment</h3>
+              {renderSkillBars(toolsSkills)}
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="professional" className="space-y-8">
+            <div className="space-y-8">
+              {professionalSkills.map((category, categoryIndex) => (
+                <div key={categoryIndex} className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-8">
+                  <h3 className="text-2xl font-semibold text-foreground mb-6">{category.category}</h3>
+                  {renderSkillBars(category.skills)}
+                </div>
+              ))}
+            </div>
+          </TabsContent>
+        </Tabs>
       </div>
     </section>
   );

@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Github, Linkedin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Github, Linkedin } from 'lucide-react';
+import AnimatedSendButton from '../AnimatedSendButton';
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -22,6 +23,8 @@ const ContactSection = () => {
     console.log('Form submitted:', formData);
     // Handle form submission here
   };
+
+  const isFormValid = formData.name && formData.email && formData.subject && formData.message;
 
   return (
     <section className="min-h-screen py-20 px-4">
@@ -94,73 +97,86 @@ const ContactSection = () => {
           <div className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
-                    Name
-                  </label>
+                <div className="relative">
                   <input
                     type="text"
                     id="name"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-foreground"
+                    className="peer w-full px-4 py-3 bg-background border-2 border-border rounded-lg focus:ring-0 focus:border-primary text-foreground placeholder-transparent transition-all duration-300"
+                    placeholder="Name"
                     required
                   />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-                    Email
+                  <label
+                    htmlFor="name"
+                    className="absolute left-4 -top-2.5 px-2 bg-background text-sm font-medium text-muted-foreground transition-all duration-300 peer-placeholder-shown:text-base peer-placeholder-shown:text-muted-foreground peer-placeholder-shown:top-3 peer-placeholder-shown:left-4 peer-focus:-top-2.5 peer-focus:left-4 peer-focus:text-sm peer-focus:text-primary"
+                  >
+                    Name
                   </label>
+                </div>
+                <div className="relative">
                   <input
                     type="email"
                     id="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-foreground"
+                    className="peer w-full px-4 py-3 bg-background border-2 border-border rounded-lg focus:ring-0 focus:border-primary text-foreground placeholder-transparent transition-all duration-300"
+                    placeholder="Email"
                     required
                   />
+                  <label
+                    htmlFor="email"
+                    className="absolute left-4 -top-2.5 px-2 bg-background text-sm font-medium text-muted-foreground transition-all duration-300 peer-placeholder-shown:text-base peer-placeholder-shown:text-muted-foreground peer-placeholder-shown:top-3 peer-placeholder-shown:left-4 peer-focus:-top-2.5 peer-focus:left-4 peer-focus:text-sm peer-focus:text-primary"
+                  >
+                    Email
+                  </label>
                 </div>
               </div>
               
-              <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-foreground mb-2">
-                  Subject
-                </label>
+              <div className="relative">
                 <input
                   type="text"
                   id="subject"
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-foreground"
+                  className="peer w-full px-4 py-3 bg-background border-2 border-border rounded-lg focus:ring-0 focus:border-primary text-foreground placeholder-transparent transition-all duration-300"
+                  placeholder="Subject"
                   required
                 />
+                <label
+                  htmlFor="subject"
+                  className="absolute left-4 -top-2.5 px-2 bg-background text-sm font-medium text-muted-foreground transition-all duration-300 peer-placeholder-shown:text-base peer-placeholder-shown:text-muted-foreground peer-placeholder-shown:top-3 peer-placeholder-shown:left-4 peer-focus:-top-2.5 peer-focus:left-4 peer-focus:text-sm peer-focus:text-primary"
+                >
+                  Subject
+                </label>
               </div>
               
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
-                  Message
-                </label>
+              <div className="relative">
                 <textarea
                   id="message"
                   name="message"
                   rows={6}
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-foreground resize-none"
+                  className="peer w-full px-4 py-3 bg-background border-2 border-border rounded-lg focus:ring-0 focus:border-primary text-foreground placeholder-transparent resize-none transition-all duration-300"
+                  placeholder="Message"
                   required
                 />
+                <label
+                  htmlFor="message"
+                  className="absolute left-4 -top-2.5 px-2 bg-background text-sm font-medium text-muted-foreground transition-all duration-300 peer-placeholder-shown:text-base peer-placeholder-shown:text-muted-foreground peer-placeholder-shown:top-3 peer-placeholder-shown:left-4 peer-focus:-top-2.5 peer-focus:left-4 peer-focus:text-sm peer-focus:text-primary"
+                >
+                  Message
+                </label>
               </div>
               
-              <button
-                type="submit"
-                className="w-full bg-primary text-primary-foreground px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
-              >
-                <Send className="h-4 w-4" />
-                Send Message
-              </button>
+              <AnimatedSendButton 
+                onClick={() => handleSubmit}
+                disabled={!isFormValid}
+              />
             </form>
           </div>
         </div>
