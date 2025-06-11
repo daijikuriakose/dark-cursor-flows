@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Download, Github, Linkedin, Twitter, Upload, User } from 'lucide-react';
+import { ArrowRight, Download, Github, Linkedin, Twitter, Upload, User, Mail } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
 
 const HeroSection = () => {
