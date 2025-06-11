@@ -210,73 +210,58 @@
   }
 }
 
-/* Breadcrumb navigation styles */
-.breadcrumb {
+/* New Breadcrumb navigation styles */
+.breadcrumb-nav {
   display: flex;
   align-items: center;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  border-radius: 12px;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
   padding: 0.25rem;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.breadcrumb-item {
+.breadcrumb-nav-item {
   position: relative;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1.5rem;
   color: var(--foreground);
   text-decoration: none;
   transition: all 0.4s ease;
-  border-radius: 6px;
+  border-radius: 8px;
+  background: transparent;
 }
 
-.breadcrumb-item::after {
-  content: "";
-  position: absolute;
-  right: -0.5rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 0;
-  height: 0;
-  border-top: 0.75rem solid transparent;
-  border-bottom: 0.75rem solid transparent;
-  border-left: 0.5rem solid transparent;
-  z-index: 1;
-  transition: border-left-color 0.4s ease;
+.breadcrumb-nav-item:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
-/* Theme toggle styles */
-.theme-toggle {
+/* Theme toggle plug styles */
+.plugs {
   position: relative;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.theme-toggle:hover {
+.plugs:hover {
   transform: scale(1.05);
 }
 
-.theme-toggle-inner {
-  border-radius: inherit;
-}
-
-.theme-toggle-svg {
+.plugs_img {
   transition: all 0.5s ease;
 }
 
-/* Send button animations */
-.send-button {
+/* Hero box styling */
+.hero-box {
   position: relative;
-  overflow: hidden;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
 }
 
-.send-content,
-.sent-content {
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.paper-plane {
-  transition: all 0.5s ease;
+.dark .hero-box {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Professional styling for inputs */
@@ -294,4 +279,19 @@ textarea:focus {
 
 .backdrop-blur-lg {
   backdrop-filter: blur(16px);
+}
+
+/* Send button animations */
+.send-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.send-content,
+.sent-content {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.paper-plane {
+  transition: all 0.5s ease;
 }

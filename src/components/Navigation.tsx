@@ -39,20 +39,20 @@ const Navigation: React.FC<NavigationProps> = ({ activeTab, setActiveTab }) => {
           
           {/* Desktop navigation */}
           <div className="hidden md:flex items-center">
-            <div className="breadcrumb flex items-center bg-card/60 backdrop-blur-sm rounded-lg shadow-lg p-1 border border-border/50">
+            <div className="breadcrumb-nav flex items-center bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-lg shadow-lg p-1 border border-white/20">
               {tabs.map((tab, index) => (
                 <React.Fragment key={tab}>
                   <button
                     onClick={() => handleTabClick(tab)}
-                    className={`breadcrumb-item relative px-4 py-2 text-sm font-medium transition-all duration-400 rounded-md ${
+                    className={`breadcrumb-nav-item relative px-4 py-2 text-sm font-medium transition-all duration-400 rounded-md ${
                       activeTab === tab
                         ? 'bg-primary text-primary-foreground shadow-sm'
-                        : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-white/10'
                     }`}
                   >
                     {tab}
-                    {index < tabs.length - 1 && activeTab !== tab && (
-                      <div className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-1/2 w-0 h-0 border-l-4 border-l-card border-t-4 border-t-transparent border-b-4 border-b-transparent z-10"></div>
+                    {index < tabs.length - 1 && activeTab === tab && (
+                      <div className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-1/2 w-0 h-0 border-l-8 border-l-primary border-t-8 border-t-transparent border-b-8 border-b-transparent z-10"></div>
                     )}
                   </button>
                 </React.Fragment>
