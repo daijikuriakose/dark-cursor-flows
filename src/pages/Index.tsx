@@ -4,8 +4,7 @@ import AnimatedBackground from "@/components/AnimatedBackground";
 import FloatingOrbs from "@/components/FloatingOrbs";
 import CursorTrail from "@/components/CursorTrail";
 import CustomCursor from "@/components/CustomCursor";
-import VerticalNavigation from "@/components/VerticalNavigation";
-import ThemeToggle from "@/components/ThemeToggle";
+import Navigation from "@/components/Navigation";
 import HomeSection from "@/components/sections/HomeSection";
 import EducationSection from "@/components/sections/EducationSection";
 import ProjectsSection from "@/components/sections/ProjectsSection";
@@ -54,16 +53,11 @@ const Index = () => {
       <FloatingOrbs />
       <CursorTrail />
       
-      {/* Vertical Navigation */}
-      <VerticalNavigation activeTab={activeTab} setActiveTab={setActiveTab} />
+      {/* Horizontal Navigation */}
+      <Navigation activeTab={activeTab} setActiveTab={setActiveTab} />
       
-      {/* Theme Toggle */}
-      <div className="fixed top-4 right-4 z-50">
-        <ThemeToggle />
-      </div>
-      
-      {/* Content */}
-      <div className="relative z-10">
+      {/* Content with top padding for fixed navigation */}
+      <div className="relative z-10 pt-16">
         {renderActiveSection()}
       </div>
       
