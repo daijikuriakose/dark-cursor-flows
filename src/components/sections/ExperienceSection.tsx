@@ -6,25 +6,11 @@ import TechnologiesSection from './TechnologiesSection';
 const ExperienceSection = () => {
   const experiences = [
     {
-      title: "Senior Full Stack Developer",
-      company: "TechCorp Inc.",
-      period: "2022 - Present",
-      description: "Lead development of web applications using React and Node.js. Mentored junior developers and implemented best practices.",
-      technologies: ["React", "Node.js", "TypeScript", "AWS"]
-    },
-    {
-      title: "Frontend Developer",
-      company: "StartupXYZ",
-      period: "2020 - 2022",
-      description: "Developed responsive web applications and collaborated with design team to implement user-friendly interfaces.",
-      technologies: ["React", "Redux", "Sass", "Jest"]
-    },
-    {
-      title: "Junior Developer",
-      company: "DevAgency",
-      period: "2019 - 2020",
-      description: "Built websites for clients using modern web technologies and gained experience in full-stack development.",
-      technologies: ["HTML", "CSS", "JavaScript", "PHP"]
+      title: "Freelance Full Stack Developer",
+      company: "Self-Employed",
+      period: "2020 - Present",
+      description: "Providing comprehensive web development services to clients worldwide. Specializing in modern web technologies and delivering high-quality, scalable solutions.",
+      technologies: ["React", "Node.js", "TypeScript", "MongoDB", "AWS", "Next.js"]
     }
   ];
 
