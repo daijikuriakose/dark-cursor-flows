@@ -1,8 +1,9 @@
 
 import React, { useState } from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const SkillsSection = () => {
+  const [activeTab, setActiveTab] = useState('frontend');
+
   const frontendSkills = [
     { name: "HTML", level: 95 },
     { name: "CSS", level: 90 },
@@ -51,18 +52,28 @@ const SkillsSection = () => {
     }
   ];
 
+  const tabs = [
+    { id: 'frontend', label: 'Frontend', skills: frontendSkills },
+    { id: 'backend', label: 'Backend', skills: backendSkills },
+    { id: 'tools', label: 'Tools & Others', skills: toolsSkills },
+    { id: 'professional', label: 'Professional', skills: professionalSkills }
+  ];
+
   const renderSkillBars = (skills: any[]) => (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {skills.map((skill, index) => (
-        <div key={index} className="space-y-2">
+        <div key={index} className="space-y-2 animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
           <div className="flex justify-between">
             <span className="text-foreground font-medium">{skill.name}</span>
             <span className="text-muted-foreground">{skill.level}%</span>
           </div>
-          <div className="w-full bg-secondary rounded-full h-2">
+          <div className="w-full bg-secondary rounded-full h-2 overflow-hidden">
             <div 
-              className="bg-gradient-to-r from-primary to-accent h-2 rounded-full transition-all duration-1000 ease-out"
-              style={{ width: `${skill.level}%` }}
+              className="bg-gradient-to-r from-primary to-accent h-2 rounded-full transition-all duration-1000 ease-out hover:scale-x-105 transform origin-left"
+              style={{ 
+                width: `${skill.level}%`,
+                animationDelay: `${index * 0.1}s`
+              }}
             />
           </div>
         </div>
@@ -71,9 +82,9 @@ const SkillsSection = () => {
   );
 
   return (
-    <section className="min-h-screen py-20 px-4">
+    <section className="min-h-screen py-20 px-4 pl-24">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-4">
             Skills
           </h2>
@@ -82,46 +93,45 @@ const SkillsSection = () => {
           </p>
         </div>
         
-        <Tabs defaultValue="frontend" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 mb-8 bg-card/50 backdrop-blur-sm">
-            <TabsTrigger value="frontend">Frontend</TabsTrigger>
-            <TabsTrigger value="backend">Backend</TabsTrigger>
-            <TabsTrigger value="tools">Tools & Others</TabsTrigger>
-            <TabsTrigger value="professional">Professional</TabsTrigger>
-          </TabsList>
+        <div className="flex gap-8">
+          {/* Vertical Tabs */}
+          <div className="w-64 space-y-2 animate-slide-in-left">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`w-full text-left p-4 rounded-lg transition-all duration-300 hover:scale-105 ${
+                  activeTab === tab.id
+                    ? 'bg-primary text-primary-foreground shadow-lg'
+                    : 'bg-card/50 backdrop-blur-sm border border-border hover:bg-secondary/50'
+                }`}
+              >
+                <span className="font-medium">{tab.label}</span>
+              </button>
+            ))}
+          </div>
           
-          <TabsContent value="frontend" className="space-y-8">
-            <div className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-8">
-              <h3 className="text-2xl font-semibold text-foreground mb-6">Frontend Development</h3>
-              {renderSkillBars(frontendSkills)}
-            </div>
-          </TabsContent>
-          
-          <TabsContent value="backend" className="space-y-8">
-            <div className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-8">
-              <h3 className="text-2xl font-semibold text-foreground mb-6">Backend Development</h3>
-              {renderSkillBars(backendSkills)}
-            </div>
-          </TabsContent>
-          
-          <TabsContent value="tools" className="space-y-8">
-            <div className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-8">
-              <h3 className="text-2xl font-semibold text-foreground mb-6">Tools & Development Environment</h3>
-              {renderSkillBars(toolsSkills)}
-            </div>
-          </TabsContent>
-          
-          <TabsContent value="professional" className="space-y-8">
-            <div className="space-y-8">
-              {professionalSkills.map((category, categoryIndex) => (
-                <div key={categoryIndex} className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-8">
-                  <h3 className="text-2xl font-semibold text-foreground mb-6">{category.category}</h3>
-                  {renderSkillBars(category.skills)}
-                </div>
-              ))}
-            </div>
-          </TabsContent>
-        </Tabs>
+          {/* Content */}
+          <div className="flex-1 animate-slide-in-right">
+            {activeTab === 'professional' ? (
+              <div className="space-y-8">
+                {professionalSkills.map((category, categoryIndex) => (
+                  <div key={categoryIndex} className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-8 hover:shadow-lg transition-all duration-300">
+                    <h3 className="text-2xl font-semibold text-foreground mb-6">{category.category}</h3>
+                    {renderSkillBars(category.skills)}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-8 hover:shadow-lg transition-all duration-300">
+                <h3 className="text-2xl font-semibold text-foreground mb-6">
+                  {tabs.find(tab => tab.id === activeTab)?.label} Development
+                </h3>
+                {renderSkillBars(tabs.find(tab => tab.id === activeTab)?.skills || [])}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </section>
   );

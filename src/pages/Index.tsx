@@ -1,9 +1,11 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AnimatedBackground from "@/components/AnimatedBackground";
 import FloatingOrbs from "@/components/FloatingOrbs";
 import CursorTrail from "@/components/CursorTrail";
-import Navigation from "@/components/Navigation";
+import CustomCursor from "@/components/CustomCursor";
+import VerticalNavigation from "@/components/VerticalNavigation";
+import ThemeToggle from "@/components/ThemeToggle";
 import HomeSection from "@/components/sections/HomeSection";
 import EducationSection from "@/components/sections/EducationSection";
 import ProjectsSection from "@/components/sections/ProjectsSection";
@@ -11,10 +13,15 @@ import SkillsSection from "@/components/sections/SkillsSection";
 import ExperienceSection from "@/components/sections/ExperienceSection";
 import CertificatesSection from "@/components/sections/CertificatesSection";
 import ContactSection from "@/components/sections/ContactSection";
-import Footer from "@/components/Footer";
+import WaveFooter from "@/components/WaveFooter";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('Home');
+
+  // Fix scroll position when changing tabs
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [activeTab]);
 
   const renderActiveSection = () => {
     switch (activeTab) {
@@ -39,21 +46,29 @@ const Index = () => {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
+      {/* Custom cursor */}
+      <CustomCursor />
+      
       {/* Animated background layers */}
       <AnimatedBackground />
       <FloatingOrbs />
       <CursorTrail />
       
-      {/* Navigation */}
-      <Navigation activeTab={activeTab} setActiveTab={setActiveTab} />
+      {/* Vertical Navigation */}
+      <VerticalNavigation activeTab={activeTab} setActiveTab={setActiveTab} />
+      
+      {/* Theme Toggle */}
+      <div className="fixed top-4 right-4 z-50">
+        <ThemeToggle />
+      </div>
       
       {/* Content */}
-      <div className="relative z-10 pt-16">
+      <div className="relative z-10">
         {renderActiveSection()}
       </div>
       
-      {/* Footer */}
-      <Footer />
+      {/* Wave Footer */}
+      <WaveFooter />
       
       {/* Decorative elements */}
       <div className="absolute top-20 left-20 w-2 h-2 bg-primary rounded-full animate-float" />
