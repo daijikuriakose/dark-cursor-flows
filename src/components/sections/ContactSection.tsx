@@ -2,14 +2,17 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Github, Linkedin } from 'lucide-react';
 import AnimatedSendButton from '../AnimatedSendButton';
+import { useToast } from '@/hooks/use-toast';
 
 const ContactSection = () => {
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -18,10 +21,45 @@ const ContactSection = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Handle form submission here
+    setIsSubmitting(true);
+    
+    try {
+      // Create mailto link with form data
+      const subject = encodeURIComponent(`Portfolio Contact: ${formData.subject}`);
+      const body = encodeURIComponent(
+        `Name: ${formData.name}\n` +
+        `Email: ${formData.email}\n` +
+        `Subject: ${formData.subject}\n\n` +
+        `Message:\n${formData.message}`
+      );
+      
+      const mailtoLink = `mailto:daijikuriakose50@gmail.com?subject=${subject}&body=${body}`;
+      window.location.href = mailtoLink;
+      
+      toast({
+        title: "Email client opened",
+        description: "Your default email client should open with the message pre-filled.",
+      });
+      
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+      
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to open email client. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const isFormValid = formData.name && formData.email && formData.subject && formData.message;
@@ -30,7 +68,7 @@ const ContactSection = () => {
     <section className="min-h-screen py-20 px-4 pl-24">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-4">
+          <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-['Orbitron',sans-serif] mb-4">
             Contact
           </h2>
           <p className="text-xl text-muted-foreground">
@@ -53,7 +91,7 @@ const ContactSection = () => {
             
             <div className="space-y-4">
               {[
-                { icon: Mail, label: 'Email', value: 'john.doe@example.com' },
+                { icon: Mail, label: 'Email', value: 'daijikuriakose50@gmail.com' },
                 { icon: Phone, label: 'Phone', value: '+1 (555) 123-4567' },
                 { icon: MapPin, label: 'Location', value: 'San Francisco, CA' }
               ].map((item, index) => (
@@ -181,8 +219,8 @@ const ContactSection = () => {
               </div>
               
               <AnimatedSendButton 
-                onClick={() => handleSubmit}
-                disabled={!isFormValid}
+                onClick={handleSubmit}
+                disabled={!isFormValid || isSubmitting}
               />
             </form>
           </div>

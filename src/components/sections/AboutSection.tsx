@@ -11,10 +11,10 @@ const AboutSection = () => {
   ];
 
   return (
-    <section className="py-16 px-4">
+    <section className="py-16 px-4" id="about-section">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent font-['Orbitron',sans-serif] mb-4">
             About Me
           </h2>
           <p className="text-muted-foreground text-lg">
@@ -22,7 +22,7 @@ const AboutSection = () => {
           </p>
         </div>
         
-        <div className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-8 mb-8">
+        <div className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-8 mb-8 hover:border-transparent hover:bg-gradient-to-r hover:from-pink-500/20 hover:via-purple-500/20 hover:to-cyan-500/20 transition-all duration-500 group">
           <div className="prose prose-lg max-w-none text-muted-foreground">
             <p className="mb-6 leading-relaxed">
               I'm a passionate Computer Science student at St Joseph's College of Engineering and Technology, 
@@ -48,7 +48,7 @@ const AboutSection = () => {
           {interests.map((interest, index) => (
             <div 
               key={index}
-              className="bg-card/30 backdrop-blur-sm border border-border rounded-lg p-6 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 group"
+              className="bg-card/30 backdrop-blur-sm border border-border rounded-lg p-6 hover:border-gradient-to-r hover:from-orange-400 hover:to-pink-500 hover:bg-primary/5 transition-all duration-300 group hover:scale-105"
             >
               <div className="flex items-start gap-4">
                 <div className="bg-primary/20 p-3 rounded-lg group-hover:bg-primary/30 transition-colors">
