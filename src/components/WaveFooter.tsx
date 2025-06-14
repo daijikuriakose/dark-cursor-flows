@@ -51,73 +51,78 @@ const WaveFooter = () => {
         </path>
       </svg>
       
-      {/* Footer Content with matching background */}
-      <div className="bg-gradient-to-br from-primary/10 via-accent/5 to-primary/10 backdrop-blur-sm py-12 relative">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            {/* Portfolio Section */}
-            <div className="space-y-4 animate-fade-in">
-              <h3 className="text-xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Portfolio</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                A showcase of my professional journey, skills, and achievements.
+      {/* Footer Content with matching wave gradient background */}
+      <div className="relative" style={{
+        background: 'linear-gradient(135deg, rgba(221, 83, 53, 0.1), rgba(59, 130, 246, 0.1), rgba(139, 69, 255, 0.1))',
+        backdropFilter: 'blur(8px)'
+      }}>
+        <div className="py-12">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+              {/* Portfolio Section */}
+              <div className="space-y-4 animate-fade-in">
+                <h3 className="text-xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Portfolio</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  A showcase of my professional journey, skills, and achievements.
+                </p>
+              </div>
+
+              {/* Quick Links */}
+              <div className="space-y-4 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+                <h3 className="text-xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Quick Links</h3>
+                <div className="space-y-2">
+                  {[
+                    { name: 'Home', path: '/home' },
+                    { name: 'Projects', path: '/projects' },
+                    { name: 'Skills', path: '/skills' },
+                    { name: 'Experience', path: '/experience' },
+                    { name: 'Contact', path: '/contact' }
+                  ].map((link, index) => (
+                    <a
+                      key={index}
+                      href={link.path}
+                      className="block text-muted-foreground hover:text-primary transition-colors duration-300 text-sm hover:translate-x-2 transform"
+                    >
+                      {link.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              {/* Connect */}
+              <div className="space-y-4 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                <h3 className="text-xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Connect</h3>
+                <div className="flex gap-4">
+                  <a
+                    href="#"
+                    className="p-3 bg-primary/20 rounded-lg hover:bg-primary/30 transition-all duration-300 hover:scale-110 group backdrop-blur-sm"
+                    aria-label="Github"
+                  >
+                    <Github className="h-5 w-5 text-primary group-hover:rotate-12 transition-transform" />
+                  </a>
+                  <a
+                    href="#"
+                    className="p-3 bg-primary/20 rounded-lg hover:bg-primary/30 transition-all duration-300 hover:scale-110 group backdrop-blur-sm"
+                    aria-label="LinkedIn"
+                  >
+                    <Linkedin className="h-5 w-5 text-primary group-hover:rotate-12 transition-transform" />
+                  </a>
+                  <a
+                    href="mailto:daijikuriakose50@gmail.com"
+                    className="p-3 bg-primary/20 rounded-lg hover:bg-primary/30 transition-all duration-300 hover:scale-110 group backdrop-blur-sm"
+                    aria-label="Email"
+                  >
+                    <Mail className="h-5 w-5 text-primary group-hover:rotate-12 transition-transform" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="border-t border-border/50 pt-6 text-center">
+              <p className="text-muted-foreground text-sm">
+                © 2024 John Doe. All rights reserved. Made with ❤️ using React & TypeScript
               </p>
             </div>
-
-            {/* Quick Links */}
-            <div className="space-y-4 animate-fade-in" style={{ animationDelay: '0.1s' }}>
-              <h3 className="text-xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Quick Links</h3>
-              <div className="space-y-2">
-                {[
-                  { name: 'Home', path: '/home' },
-                  { name: 'Projects', path: '/projects' },
-                  { name: 'Skills', path: '/skills' },
-                  { name: 'Experience', path: '/experience' },
-                  { name: 'Contact', path: '/contact' }
-                ].map((link, index) => (
-                  <a
-                    key={index}
-                    href={link.path}
-                    className="block text-muted-foreground hover:text-primary transition-colors duration-300 text-sm hover:translate-x-2 transform"
-                  >
-                    {link.name}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {/* Connect */}
-            <div className="space-y-4 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              <h3 className="text-xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Connect</h3>
-              <div className="flex gap-4">
-                <a
-                  href="#"
-                  className="p-3 bg-primary/20 rounded-lg hover:bg-primary/30 transition-all duration-300 hover:scale-110 group backdrop-blur-sm"
-                  aria-label="Github"
-                >
-                  <Github className="h-5 w-5 text-primary group-hover:rotate-12 transition-transform" />
-                </a>
-                <a
-                  href="#"
-                  className="p-3 bg-primary/20 rounded-lg hover:bg-primary/30 transition-all duration-300 hover:scale-110 group backdrop-blur-sm"
-                  aria-label="LinkedIn"
-                >
-                  <Linkedin className="h-5 w-5 text-primary group-hover:rotate-12 transition-transform" />
-                </a>
-                <a
-                  href="mailto:daijikuriakose50@gmail.com"
-                  className="p-3 bg-primary/20 rounded-lg hover:bg-primary/30 transition-all duration-300 hover:scale-110 group backdrop-blur-sm"
-                  aria-label="Email"
-                >
-                  <Mail className="h-5 w-5 text-primary group-hover:rotate-12 transition-transform" />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-border/50 pt-6 text-center">
-            <p className="text-muted-foreground text-sm">
-              © 2024 John Doe. All rights reserved. Made with ❤️ using React & TypeScript
-            </p>
           </div>
         </div>
       </div>

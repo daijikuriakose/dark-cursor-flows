@@ -85,7 +85,7 @@ const SkillsSection = () => {
     <section className="min-h-screen py-20 px-4 pl-24">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-4">
+          <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-['Orbitron',sans-serif] mb-4">
             Skills
           </h2>
           <p className="text-xl text-muted-foreground">
