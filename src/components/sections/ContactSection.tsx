@@ -62,10 +62,17 @@ const ContactSection = () => {
     }
   };
 
+  const handleButtonClick = () => {
+    const form = document.querySelector('form');
+    if (form) {
+      form.requestSubmit();
+    }
+  };
+
   const isFormValid = formData.name && formData.email && formData.subject && formData.message;
 
   return (
-    <section className="min-h-screen py-20 px-4 pl-24">
+    <section className="min-h-screen py-20 px-4 pl-24 animate-fade-in">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-['Orbitron',sans-serif] mb-4">
@@ -219,7 +226,7 @@ const ContactSection = () => {
               </div>
               
               <AnimatedSendButton 
-                onClick={handleSubmit}
+                onClick={handleButtonClick}
                 disabled={!isFormValid || isSubmitting}
               />
             </form>
