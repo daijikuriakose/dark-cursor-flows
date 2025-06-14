@@ -13,9 +13,9 @@ const WaveFooter = () => {
       >
         <defs>
           <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.3" />
-            <stop offset="50%" stopColor="hsl(var(--accent))" stopOpacity="0.5" />
-            <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0.3" />
+            <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.4" />
+            <stop offset="50%" stopColor="#a855f7" stopOpacity="0.6" />
+            <stop offset="100%" stopColor="#9333ea" stopOpacity="0.5" />
           </linearGradient>
         </defs>
         
@@ -36,8 +36,8 @@ const WaveFooter = () => {
         
         <path
           d="M0,80 C300,40 600,100 900,40 C1050,10 1200,70 1200,80 L1200,120 L0,120 Z"
-          fill="hsl(var(--primary))"
-          fillOpacity="0.2"
+          fill="#7c3aed"
+          fillOpacity="0.3"
           className="animate-wave-2"
         >
           <animate
@@ -53,7 +53,7 @@ const WaveFooter = () => {
       
       {/* Footer Content with matching wave gradient background */}
       <div className="relative" style={{
-        background: 'linear-gradient(135deg, rgba(221, 83, 53, 0.1), rgba(59, 130, 246, 0.1), rgba(139, 69, 255, 0.1))',
+        background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.4), rgba(168, 85, 247, 0.5), rgba(147, 51, 234, 0.4))',
         backdropFilter: 'blur(8px)'
       }}>
         <div className="py-12">

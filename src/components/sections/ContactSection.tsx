@@ -13,16 +13,67 @@ const ContactSection = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState({
+    name: false,
+    email: false,
+    subject: false,
+    message: false
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
     });
+    
+    // Clear error when user starts typing
+    if (errors[name as keyof typeof errors]) {
+      setErrors({
+        ...errors,
+        [name]: false
+      });
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors = {
+      name: !formData.name.trim(),
+      email: !formData.email.trim(),
+      subject: !formData.subject.trim(),
+      message: !formData.message.trim()
+    };
+    
+    setErrors(newErrors);
+    
+    // Add vibration class to empty fields
+    Object.keys(newErrors).forEach(field => {
+      if (newErrors[field as keyof typeof newErrors]) {
+        const element = document.getElementById(field);
+        if (element) {
+          element.classList.add('animate-vibrate');
+          setTimeout(() => {
+            element.classList.remove('animate-vibrate');
+          }, 2000);
+        }
+      }
+    });
+    
+    return !Object.values(newErrors).some(error => error);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!validateForm()) {
+      toast({
+        title: "Please fill in all fields",
+        description: "All fields are required to send your message.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setIsSubmitting(true);
     
     try {
@@ -69,12 +120,12 @@ const ContactSection = () => {
     }
   };
 
-  const isFormValid = formData.name && formData.email && formData.subject && formData.message;
+  const isFormValid = formData.name.trim() && formData.email.trim() && formData.subject.trim() && formData.message.trim();
 
   return (
-    <section className="min-h-screen py-20 px-4 pl-24 animate-fade-in">
+    <section className="min-h-screen py-20 px-4 pl-24 animate-fade-in animate-scroll-reveal">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16 animate-fade-in">
+        <div className="text-center mb-16 animate-fade-in animate-scroll-reveal">
           <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent font-['Orbitron',sans-serif] mb-4">
             Contact
           </h2>
@@ -85,7 +136,7 @@ const ContactSection = () => {
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Info */}
-          <div className="space-y-8 animate-slide-in-left">
+          <div className="space-y-8 animate-slide-in-left animate-scroll-reveal">
             <div>
               <h3 className="text-2xl font-semibold text-foreground mb-6">
                 Get in Touch
@@ -104,7 +155,7 @@ const ContactSection = () => {
               ].map((item, index) => (
                 <div 
                   key={index}
-                  className="flex items-center gap-4 animate-fade-in-up hover:scale-105 transition-transform duration-300"
+                  className="flex items-center gap-4 animate-fade-in-up hover:scale-105 transition-transform duration-300 animate-scroll-reveal"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <div className="bg-primary/20 p-3 rounded-lg hover:bg-primary/30 transition-colors">
@@ -123,7 +174,7 @@ const ContactSection = () => {
                 <a 
                   key={index}
                   href="#" 
-                  className="bg-primary/20 p-3 rounded-lg hover:bg-primary/30 transition-all duration-300 hover:scale-110 hover:rotate-6"
+                  className="bg-primary/20 p-3 rounded-lg hover:bg-primary/30 transition-all duration-300 hover:scale-110 hover:rotate-6 animate-scroll-reveal"
                   style={{ animationDelay: `${0.4 + index * 0.1}s` }}
                 >
                   <Icon className="h-5 w-5 text-primary" />
@@ -133,7 +184,7 @@ const ContactSection = () => {
           </div>
           
           {/* Contact Form */}
-          <div className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-8 animate-slide-in-right">
+          <div className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-8 animate-slide-in-right animate-scroll-reveal">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Name Field */}
@@ -144,7 +195,9 @@ const ContactSection = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="peer w-full px-4 py-3 bg-background/50 border-2 border-border rounded-lg focus:ring-0 focus:border-primary text-foreground placeholder-transparent transition-all duration-300 backdrop-blur-sm"
+                    className={`peer w-full px-4 py-3 bg-background/50 border-2 ${
+                      errors.name ? 'border-red-500' : 'border-border'
+                    } rounded-lg focus:ring-0 focus:border-primary text-foreground placeholder-transparent transition-all duration-300 backdrop-blur-sm`}
                     placeholder="Name"
                     required
                   />
@@ -166,7 +219,9 @@ const ContactSection = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="peer w-full px-4 py-3 bg-background/50 border-2 border-border rounded-lg focus:ring-0 focus:border-primary text-foreground placeholder-transparent transition-all duration-300 backdrop-blur-sm"
+                    className={`peer w-full px-4 py-3 bg-background/50 border-2 ${
+                      errors.email ? 'border-red-500' : 'border-border'
+                    } rounded-lg focus:ring-0 focus:border-primary text-foreground placeholder-transparent transition-all duration-300 backdrop-blur-sm`}
                     placeholder="Email"
                     required
                   />
@@ -189,7 +244,9 @@ const ContactSection = () => {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className="peer w-full px-4 py-3 bg-background/50 border-2 border-border rounded-lg focus:ring-0 focus:border-primary text-foreground placeholder-transparent transition-all duration-300 backdrop-blur-sm"
+                  className={`peer w-full px-4 py-3 bg-background/50 border-2 ${
+                    errors.subject ? 'border-red-500' : 'border-border'
+                  } rounded-lg focus:ring-0 focus:border-primary text-foreground placeholder-transparent transition-all duration-300 backdrop-blur-sm`}
                   placeholder="Subject"
                   required
                 />
@@ -211,7 +268,9 @@ const ContactSection = () => {
                   rows={6}
                   value={formData.message}
                   onChange={handleChange}
-                  className="peer w-full px-4 py-3 bg-background/50 border-2 border-border rounded-lg focus:ring-0 focus:border-primary text-foreground placeholder-transparent resize-none transition-all duration-300 backdrop-blur-sm"
+                  className={`peer w-full px-4 py-3 bg-background/50 border-2 ${
+                    errors.message ? 'border-red-500' : 'border-border'
+                  } rounded-lg focus:ring-0 focus:border-primary text-foreground placeholder-transparent resize-none transition-all duration-300 backdrop-blur-sm`}
                   placeholder="Message"
                   required
                 />
